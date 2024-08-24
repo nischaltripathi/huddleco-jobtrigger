@@ -1,0 +1,67 @@
+<%= form_with(model: job) do |form| %>
+  <% if job.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(job.errors.count, "error") %> prohibited this job from being saved:</h2>
+
+      <ul>
+        <% job.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :company_name, style: "display: block" %>
+    <%= form.text_field :company_name %>
+  </div>
+
+  <div>
+    <%= form.label :string, style: "display: block" %>
+    <%= form.text_field :string %>
+  </div>
+
+  <div>
+    <%= form.label :zendesk_subdomain, style: "display: block" %>
+    <%= form.text_field :zendesk_subdomain %>
+  </div>
+
+  <div>
+    <%= form.label :string, style: "display: block" %>
+    <%= form.text_field :string %>
+  </div>
+
+  <div>
+    <%= form.label :zendesk_username, style: "display: block" %>
+    <%= form.text_field :zendesk_username %>
+  </div>
+
+  <div>
+    <%= form.label :string, style: "display: block" %>
+    <%= form.text_field :string %>
+  </div>
+
+  <div>
+    <%= form.label :zendesk_api_key, style: "display: block" %>
+    <%= form.text_field :zendesk_api_key %>
+  </div>
+
+  <div>
+    <%= form.label :string, style: "display: block" %>
+    <%= form.text_field :string %>
+  </div>
+
+  <div>
+    <%= form.label :intercom_api_key, style: "display: block" %>
+    <%= form.text_field :intercom_api_key %>
+  </div>
+
+  <div>
+    <%= form.label :string, style: "display: block" %>
+    <%= form.text_field :string %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
