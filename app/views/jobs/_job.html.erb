@@ -1,52 +1,15 @@
 <div id="<%= dom_id job %>">
-  <p>
-    <strong>Company name:</strong>
-    <%= job.company_name %>
-  </p>
-
-  <p>
-    <strong>String:</strong>
-    <%= job.string %>
-  </p>
-
-  <p>
-    <strong>Zendesk subdomain:</strong>
-    <%= job.zendesk_subdomain %>
-  </p>
-
-  <p>
-    <strong>String:</strong>
-    <%= job.string %>
-  </p>
-
-  <p>
-    <strong>Zendesk username:</strong>
-    <%= job.zendesk_username %>
-  </p>
-
-  <p>
-    <strong>String:</strong>
-    <%= job.string %>
-  </p>
-
-  <p>
-    <strong>Zendesk api key:</strong>
-    <%= job.zendesk_api_key %>
-  </p>
-
-  <p>
-    <strong>String:</strong>
-    <%= job.string %>
-  </p>
-
-  <p>
-    <strong>Intercom api key:</strong>
-    <%= job.intercom_api_key %>
-  </p>
-
-  <p>
-    <strong>String:</strong>
-    <%= job.string %>
-  </p>
-
+  <div class="container">
+    <div class="d-flex">
+    <p class="p-2 flex-grow-1">
+   <%= job.company_name %>
+   </p>
+   <p class="p-2">
+   <%= job.created_at.in_time_zone('Australia/Adelaide') %> ACST
+   </p>
+  </div>
+  <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
+  <div class="progress-bar w-75"></div>
+</div>
+</div>
 </div>
