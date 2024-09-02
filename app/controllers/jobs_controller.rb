@@ -1,5 +1,5 @@
 class JobsController < ApplicationController
-  before_action :set_job, only: %i[ show edit update destroy ]
+  before_action :set_job, only: %i[show edit update destroy]
 
   # GET /jobs or /jobs.json
   def index
@@ -25,7 +25,7 @@ class JobsController < ApplicationController
 
     respond_to do |format|
       if @job.save
-        format.html { redirect_to job_url(@job), notice: "Job was successfully created." }
+        format.html { redirect_to job_url(@job), notice: 'Job was successfully created.' }
         format.json { render :show, status: :created, location: @job }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -38,7 +38,7 @@ class JobsController < ApplicationController
   def update
     respond_to do |format|
       if @job.update(job_params)
-        format.html { redirect_to job_url(@job), notice: "Job was successfully updated." }
+        format.html { redirect_to job_url(@job), notice: 'Job was successfully updated.' }
         format.json { render :show, status: :ok, location: @job }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -52,19 +52,21 @@ class JobsController < ApplicationController
     @job.destroy!
 
     respond_to do |format|
-      format.html { redirect_to jobs_url, notice: "Job was successfully destroyed." }
+      format.html { redirect_to jobs_url, notice: 'Job was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_job
-      @job = Job.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def job_params
-      params.require(:job).permit(:company_name, :string, :zendesk_subdomain, :string, :zendesk_username, :string, :zendesk_api_key, :string, :intercom_api_key, :string)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_job
+    @job = Job.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def job_params
+    params.require(:job).permit(:company_name, :string, :zendesk_subdomain, :string, :zendesk_username, :string,
+                                :zendesk_api_key, :string, :intercom_api_key, :string)
+  end
 end
