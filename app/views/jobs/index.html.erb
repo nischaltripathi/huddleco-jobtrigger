@@ -7,12 +7,16 @@
   <% @jobs.each do |job| %>
   <div class = "d-flex">
     <div class="p-2 flex-grow-1">
+      <b>
     <%= job.company_name %>
+    </b>
   <div class="progress" role="progressbar" aria-label="Basic example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
   <div class="progress-bar w-75"></div>
 </div>
 <div class="p-2">
+  <i>
   <%= job.id %>
+  </i>
   </div>
 </div>
 
