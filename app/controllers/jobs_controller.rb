@@ -4,6 +4,10 @@ class JobsController < ApplicationController
   # GET /jobs or /jobs.json
   def index
     @jobs = Job.all
+    @jobs.each do |job|
+      job.progress = job.progress + 1
+      job.save
+    end
   end
 
   # GET /jobs/1 or /jobs/1.json

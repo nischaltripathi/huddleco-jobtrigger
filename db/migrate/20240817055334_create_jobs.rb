@@ -6,7 +6,7 @@ class CreateJobs < ActiveRecord::Migration[7.1]
       t.string :zendesk_username
       t.string :zendesk_api_key
       t.string :intercom_api_key
-
+      t.decimal :progress, default: 0.0, precision: 10, scale: 2
       t.timestamps
     end
   end

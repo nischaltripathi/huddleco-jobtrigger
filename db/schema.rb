@@ -17,6 +17,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_17_055334) do
     t.string "zendesk_username"
     t.string "zendesk_api_key"
     t.string "intercom_api_key"
+    t.decimal "progress", precision: 10, scale: 2, default: "0.0"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
