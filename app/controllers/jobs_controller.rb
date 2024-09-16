@@ -5,8 +5,30 @@ class JobsController < ApplicationController
   def index
     @jobs = Job.all
     @jobs.each do |job|
-      job.progress = job.progress + 1
+      job.progress = if job.in_progress
+                       job.progress + 1
+                     else
+                       0
+                     end
       job.save
+    end
+  end
+
+  def start
+    @job = Job.find(params[:id])
+    @job.start
+    respond_to do |format|
+      format.html { redirect_to jobs_path, notice: 'Job started.' }
+      format.js
+    end
+  end
+
+  def pause
+    @job = Job.find(params[:id])
+    @job.pause
+    respond_to do |format|
+      format.html { redirect_to jobs_path, notice: 'Job paused.' }
+      format.js
     end
   end
 

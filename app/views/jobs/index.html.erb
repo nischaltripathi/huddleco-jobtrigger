@@ -6,15 +6,12 @@
   <% if @jobs.any? %>
     <% @jobs.each do |job| %>
       <div class="d-flex align-items-center mb-3">
-        <!-- Left side: company name -->
         <div class="flex-grow-1">
           <div class="d-flex justify-content-between">
             <b><%= job.company_name %></b>
-            <!-- Right side: date and time -->
             <small><%= local_time(job.created_at) %></small>
           </div>
 
-          <!-- Progress bar below the company name and date -->
           <div class="progress mt-2">
             <div 
               class="progress-bar progress-bar-striped progress-bar-animated" 
@@ -27,21 +24,23 @@
             </div>
           </div>
 
-          <!-- Job ID below the progress bar -->
           <div class="mt-2">
             <i><%= job.id %></i>
           </div>
         </div>
 
-        <!-- Buttons on the right side -->
         <div class="ms-2">
-          <%= link_to "Start", job, class: "btn btn-secondary" %>
+          <% if job.in_progress %>
+            <%= button_to "Pause", pause_job_path(job), method: :patch, class: "btn", remote: true, data: { type: :script } %>
+          <% else %>
+            <%= button_to "Start", start_job_path(job), method: :patch, class: "btn", remote: true, data: { type: :script } %>
+          <% end %>
         </div>
         <div class="ms-2">
-          <%= button_to "Stop", job, method: :delete, class: "btn btn-secondary" %>
+          <%= button_to "Stop", job, method: :delete, class: "btn" %>
         </div>
         <div class="ms-2">
-          <%= link_to "View", job, class: "btn btn-secondary" %>
+          <%= link_to "View", job, class: "btn" %>
         </div>
       </div>
     <% end %>

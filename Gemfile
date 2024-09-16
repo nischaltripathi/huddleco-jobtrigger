@@ -66,6 +66,7 @@ group :test do
   gem 'selenium-webdriver'
 end
 
+gem 'devise'
 gem 'local_time'
 gem 'rubocop'
 gem 'ruby-lsp'
