@@ -2,7 +2,6 @@
   <% if job.errors.any? %>
     <div  id="error_explanation" class="alert alert-danger alert-dismissible fade show" role="alert" >
       <h2><%= pluralize(job.errors.count, "error") %> prohibited this job from being saved:</h2>
-
       <ul>
         <% job.errors.each do |error| %>
           <li><%= error.full_message %></li>
@@ -10,37 +9,31 @@
       </ul>
     </div>
   <% end %>
-<div class="card">
-<div class="card-body">
-  <form>
-  <div class="field form-group">
-    <%= form.label :company_name, style: "display: block" %>
-    <%= form.text_field :company_name,  class: "form-control" %>
-  </div>
-
-  <div class="field form-group">
-    <%= form.label :zendesk_subdomain, style: "display: block", class: "form-label" %>
-    <%= form.text_field :zendesk_subdomain,  class: "form-control" %>
-  </div>
-
-  <div class="field form-group">
-    <%= form.label :zendesk_username, style: "display: block", class: "form-label" %>
-    <%= form.text_field :zendesk_username,  class: "form-control" %>
-  </div>
-
-  <div class="field form-group">
-    <%= form.label :zendesk_api_key, style: "display: block", class: "form-label" %>
-    <%= form.text_field :zendesk_api_key,  class: "form-control" %>
-  </div>
-
-  <div class="field form-group">
-    <%= form.label :intercom_api_key, style: "display: block", class: "form-label" %>
-    <%= form.text_field :intercom_api_key,  class: "form-control" %>
-  </div>
-
-    <%= form.submit class: "btn btn-primary"%>
-  
-  </form>
-  </div>
+  <div class="card">
+    <div class="card-body">
+      <form>
+        <div class="field form-group">
+          <%= form.label :company_name, style: "display: block" %>
+          <%= form.text_field :company_name,  class: "form-control" %>
+        </div>
+        <div class="field form-group">
+          <%= form.label :zendesk_subdomain, style: "display: block", class: "form-label" %>
+          <%= form.text_field :zendesk_subdomain,  class: "form-control" %>
+        </div>
+        <div class="field form-group">
+          <%= form.label :zendesk_username, style: "display: block", class: "form-label" %>
+          <%= form.text_field :zendesk_username,  class: "form-control" %>
+        </div>
+        <div class="field form-group">
+          <%= form.label :zendesk_api_key, style: "display: block", class: "form-label" %>
+          <%= form.text_field :zendesk_api_key,  class: "form-control" %>
+        </div>
+        <div class="field form-group">
+          <%= form.label :intercom_api_key, style: "display: block", class: "form-label" %>
+          <%= form.text_field :intercom_api_key,  class: "form-control" %>
+        </div>
+        <%= form.submit class: "btn btn-primary"%>
+      </form>
+    </div>
   </div>
 <% end %>

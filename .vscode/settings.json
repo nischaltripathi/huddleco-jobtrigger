@@ -1,5 +1,13 @@
 {
     "editor.defaultFormatter": "Shopify.ruby-lsp",
     "editor.formatOnSave": true,
-    "rubyLsp.formatter": "rubocop"
+    "rubyLsp.formatter": "rubocop",
+    "files.associations": {
+    "*.html.erb": "erb"
+},
+"vscode-erb-beautify.useBundler": true,
+"rubyLsp.erbSupport": false,
+"[erb]": {
+    "editor.defaultFormatter": "aliariff.vscode-erb-beautify"
+}
 }

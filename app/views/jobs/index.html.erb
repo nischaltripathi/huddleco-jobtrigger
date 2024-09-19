@@ -1,7 +1,5 @@
 <p style="color: green"><%= notice %></p>
-
 <h1>Jobs</h1>
-
 <div id="jobs">
   <% if @jobs.any? %>
     <% @jobs.each do |job| %>
@@ -11,7 +9,6 @@
             <b><%= job.company_name %></b>
             <small><%= local_time(job.created_at) %></small>
           </div>
-
           <div class="progress mt-2">
             <div 
               class="progress-bar progress-bar-striped progress-bar-animated" 
@@ -23,12 +20,10 @@
               <%= job.progress %>%
             </div>
           </div>
-
           <div class="mt-2">
             <i><%= job.id %></i>
           </div>
         </div>
-
         <div class="ms-2">
           <% if job.in_progress %>
             <%= button_to "Pause", pause_job_path(job), method: :patch, class: "btn", remote: true, data: { type: :script } %>
@@ -48,5 +43,4 @@
     <p>No jobs to show.</p>
   <% end %>
 </div>
-
 <%= link_to "New job", new_job_path, class: "btn btn-secondary" %>

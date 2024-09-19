@@ -67,6 +67,7 @@ group :test do
 end
 
 gem 'devise'
+gem 'htmlbeautifier'
 gem 'local_time'
 gem 'rubocop'
 gem 'ruby-lsp'
