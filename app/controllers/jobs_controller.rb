@@ -1,6 +1,6 @@
 class JobsController < ApplicationController
   before_action :set_job, only: %i[show edit update destroy]
-
+  before_action :authenticate_user!
   # GET /jobs or /jobs.json
   def index
     @jobs = Job.all
@@ -48,7 +48,7 @@ class JobsController < ApplicationController
   # POST /jobs or /jobs.json
   def create
     @job = Job.new(job_params)
-
+    @job.user = current_user
     respond_to do |format|
       if @job.save
         format.html { redirect_to job_url(@job), notice: 'Job was successfully created.' }
@@ -92,7 +92,7 @@ class JobsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def job_params
-    params.require(:job).permit(:company_name, :string, :zendesk_subdomain, :string, :zendesk_username, :string,
-                                :zendesk_api_key, :string, :intercom_api_key, :string)
+    params.require(:job).permit(:company_name, :zendesk_subdomain, :zendesk_username,
+                                :zendesk_api_key, :intercom_api_key)
   end
 end
