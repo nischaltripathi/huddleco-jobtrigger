@@ -8,7 +8,7 @@ class JobsController < ApplicationController
       job.progress = if job.in_progress
                        job.progress + 1
                      else
-                       0
+                       job.progress = job.progress
                      end
       job.save
     end
