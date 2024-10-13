@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_09_23_121141) do
+ActiveRecord::Schema[7.1].define(version: 2024_10_10_224639) do
   create_table "jobs", force: :cascade do |t|
     t.string "company_name"
     t.string "zendesk_subdomain"
@@ -36,6 +36,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_23_121141) do
     t.string "confirmation_token"
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
+    t.string "unconfirmed_email"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true

@@ -68,6 +68,7 @@ end
 
 gem 'devise'
 gem 'htmlbeautifier'
+gem 'letter_opener_web', '~> 3.0'
 gem 'local_time'
 gem 'rubocop'
 gem 'ruby-lsp'
