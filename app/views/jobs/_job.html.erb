@@ -1,11 +1,11 @@
 <div id="<%= dom_id job %>">
-  <div class="card-body d-flex flex-column justify-content-center">
-    <div class="d-flex justify-content-center align-items-start" style="height: 100vh; padding-top: 20px;">
-      <div class="card text-center" style="width: 700px; height: 300px;">
-        <h1><%= job.company_name %> Job</h1>
+  <div class="card-body d-flex flex-column justify-content-center align-items-center" style="height: 70vh; padding-top: 20px;">
+    <div class="card text-center" style="width: 700px;">
+      <div class="card-body">
+        <h1><%= job.company_name.capitalize %> Job</h1>
         <div class="field form-group">
           <strong>Company name:</strong>
-          <%= job.company_name %>
+          <%= job.company_name.capitalize %>
         </div>
         <div class="field form-group">
           <strong>Zendesk subdomain:</strong>
@@ -23,9 +23,13 @@
           <strong>Intercom api key:</strong>
           <%= job.intercom_api_key %>
         </div>
-        <div class="container">
-          <%= link_to "Edit this job", edit_job_path(@job), class: 'btn btn-info' %> |
-          <%= link_to "Back to jobs", jobs_path, class: 'btn' %>
+        <!-- Button group for action buttons -->
+        <div class="d-flex justify-content-center">
+          <%= link_to "Edit this job", edit_job_path(@job), class: 'btn btn-info mx-2' %>
+          <%= link_to "Back to jobs", jobs_path, class: 'btn btn-secondary mx-2' %>
+        </div>
+        <!-- Stop button is placed inside the card-body and centered -->
+        <div class="d-flex justify-content-center mt-3">
           <%= button_to "Stop", job, method: :delete, class: "btn btn-danger" %>
         </div>
       </div>

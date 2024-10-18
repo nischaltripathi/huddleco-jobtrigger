@@ -6,7 +6,7 @@
       <div class="d-flex align-items-center mb-3">
         <div class="flex-grow-1">
           <div class="d-flex justify-content-between">
-            <b><%= job.company_name %></b>
+            <b><%= job.company_name.capitalize %> </b>
             <small><%= local_time(job.created_at) %></small>
           </div>
           <div class="progress mt-2">
@@ -21,7 +21,8 @@
             </div>
           </div>
           <div class="mt-2">
-            <i><%= job.id %></i>
+            <b>JobId:</b>
+            <i> <%= job.id %></i>
           </div>
         </div>
         <div class="ms-2">
