@@ -1,4 +1,4 @@
-  <nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <nav class="navbar navbar-expand-lg custom-navbar">
   <div class="container-fluid">
     <img src="https://www.huddleco.com.au/wp-content/uploads/2023/09/HuddleCo-WebsiteLogo-v3.png" width="160" height="60" alt="">
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -7,21 +7,33 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
         <% if user_signed_in? %>
-          <li class="nav-item">
-            <%= link_to "Sign Out", destroy_user_session_path, data:{turbo_method: :delete}, class: "nav_link mx-2"  %>
-          </li>
-          <li class="nav-item">
-            <%= link_to "Edit Profile", edit_user_registration_path, class: "nav_link mx-2" %>
-          </li>
-        <%else%>
-          <li class="nav-item">
-            <%= link_to "Sign Up", new_user_registration_path, class: "nav_link mx-2" %>
-          </li>
-          <li class="nav-item">
-            <%= link_to "Sign In", new_user_session_path, class: "nav_link mx-2" %>
-          </li>
-        <%end%>
-      </ul>
-    </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav ms-auto">
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  <span class="ms-2">N</span> <!-- Initial or name next to avatar -->
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                  <%= link_to "Edit Profile", edit_user_registration_path, class: "dropdown-item" %>
+                  <%= link_to "Jobs", jobs_path, class: "dropdown-item" %>
+                  <%= link_to "Sign Out", destroy_user_session_path, data:{turbo_method: :delete}, class: "dropdown-item" %>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      <%else%>
+        <li class="nav-item">
+          <%= link_to "Sign Up", new_user_registration_path, class: "nav_link mx-2" %>
+        </li>
+        <li class="nav-item">
+          <%= link_to "Sign In", new_user_session_path, class: "nav_link mx-2" %>
+        </li>
+      <%end%>
+    </ul>
   </div>
+</div>
 </nav>
