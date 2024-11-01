@@ -24,6 +24,11 @@ class JobsController < ApplicationController
     end
   end
 
+  def correct_user
+    @job = current_user.jobs.find_by(id: params[:id])
+    redirect_to jobs_path, notice: 'Not Authorized' if @job.nil?
+  end
+
   def pause
     @job = Job.find(params[:id])
     @job.pause
@@ -39,7 +44,7 @@ class JobsController < ApplicationController
 
   # GET /jobs/new
   def new
-    @job = Job.new
+    @job = current_user.jobs.build
   end
 
   # GET /jobs/1/edit
@@ -48,8 +53,7 @@ class JobsController < ApplicationController
 
   # POST /jobs or /jobs.json
   def create
-    @job = Job.new(job_params)
-    @job.user = current_user
+    @job = current_user.jobs.build(job_params)
     respond_to do |format|
       if @job.save
         format.html { redirect_to job_url(@job), notice: 'Job was successfully created.' }
@@ -82,11 +86,6 @@ class JobsController < ApplicationController
       format.html { redirect_to jobs_url, notice: 'Job was successfully destroyed.' }
       format.json { head :no_content }
     end
-  end
-
-  def current_user
-    @job = current_user.jobs.find_by(id: params[:id])
-    redirect_to jobs_path, notice: 'Not Authorized' if @job.nil?
   end
 
   private
