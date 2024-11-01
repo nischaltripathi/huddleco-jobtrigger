@@ -23,12 +23,10 @@
           <strong>Intercom api key:</strong>
           <%= job.intercom_api_key %>
         </div>
-        <!-- Button group for action buttons -->
         <div class="d-flex justify-content-center">
           <%= link_to "Edit this job", edit_job_path(@job), class: 'btn btn-info mx-2' %>
           <%= link_to "Back to jobs", jobs_path, class: 'btn btn-secondary mx-2' %>
         </div>
-        <!-- Stop button is placed inside the card-body and centered -->
         <div class="d-flex justify-content-center mt-3">
           <%= button_to "Stop", job, method: :delete, class: "btn btn-danger" %>
         </div>
