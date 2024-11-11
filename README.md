@@ -44,7 +44,6 @@ Create a docker secret on the production server with the contents of the local `
 ```bash
 $ cat config/master.key | ssh deploy@laura-malta.bnr.la "docker secret create migr8now_webapp_rails_master_key -"
 xqhgffymdlduqru41pm9f6kis
-...
 ```
 
 ### Update deployment
