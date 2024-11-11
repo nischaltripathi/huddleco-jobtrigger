@@ -1,0 +1,51 @@
+services:
+  app:
+    image: migr8now-webapp:latest
+    networks:
+      - proxy
+      # - main
+    # environment:
+    #   MIGR8NOW_WEBAPP_DATABASE_HOST: migr8now_webapp_db
+    # depends_on:
+    #   - db
+    volumes:
+      - app-storage:/rails/storage
+    secrets:
+      - source: migr8now_webapp_rails_master_key
+        target: /rails/config/master.key
+      # - migr8now_webapp_postgres_password
+    deploy:
+      replicas: 1
+      update_config:
+          parallelism: 1
+          delay: 10s
+          order: start-first
+
+  # db:
+  #   image: postgres:17-alpine
+  #   environment:
+  #     POSTGRES_USER: migr8now_webapp
+  #     POSTGRES_PASSWORD_FILE: /run/secrets/migr8now_webapp_postgres_password
+  #     POSTGRES_DB: migr8now_webapp
+  #   networks:
+  #     - main
+  #   volumes:
+  #     - db-data:/var/lib/postgresql/data
+  #   secrets:
+  #     - migr8now_webapp_postgres_password
+
+volumes:
+  # db-data:
+  app-storage:
+
+networks:
+  # main:
+  proxy:
+    external: true
+    name: NPM_default
+
+secrets:
+  migr8now_webapp_rails_master_key:
+    external: true
+  # migr8now_webapp_postgres_password:
+  #   external: true
