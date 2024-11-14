@@ -42,14 +42,7 @@ A new tab with a temporary unencrypted version of the credentials file will open
 
 ### Initial Deployment
 
-When deploying for the first time, secrets will need to be created so that app can boot successfully.
-
-Create a docker secret on the production server with the contents of the local `config/master.key` file with the following command.
-
-```bash
-$ cat config/master.key | ssh deploy@laura-malta.bnr.la "docker secret create migr8now_webapp_rails_master_key -"
-xqhgffymdlduqru41pm9f6kis
-```
+Create a `.env.production.local` file that contains the environment variables for use in the the production environment.
 
 ### Update deployment
 
@@ -57,12 +50,13 @@ Run these commands to deploy the app
 
 ```bash
 
-$ rsync -azlP --delete --include Dockerfile --include docker-compose* --exclude-from=.dockerignore  . deploy@laura-malta.bnr.la:~/migr8now && \
+$ rsync -azlP --delete --include Dockerfile --include .env.production.local --include docker-compose* --exclude-from=.dockerignore  . deploy@laura-malta.bnr.la:~/migr8now && \
   ssh deploy@laura-malta.bnr.la -t "\
     (cd ~/migr8now && \
     docker build . -t migr8now-webapp:latest && \
-    docker stack deploy -c docker-compose.prod.yml migr8now) && \
+    docker stack deploy -c docker-compose.prod.yml --detach=false migr8now) && \
     docker service update migr8now_app --image migr8now-webapp:latest --force && \
+    docker service update migr8now_sidekiq --image migr8now-webapp:latest --force && \
     docker system prune -af && \
     rm -rfv ~/migr8now"
 ```

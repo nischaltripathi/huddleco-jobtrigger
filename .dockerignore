@@ -36,5 +36,10 @@
 !/app/assets/builds/.keep
 /public/assets
 
+# Ignore files for deployment
+/docker-compose.*
+/Dockerfile
+/.dockerignore
+
 # Ignore documentation.
 /README.md
