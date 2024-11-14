@@ -68,6 +68,7 @@ end
 
 gem 'devise'
 gem 'local_time'
+gem 'sabel', path: 'tmp/sabel'
 gem 'sidekiq'
 
 group :development do
@@ -81,5 +82,3 @@ end
 group :development, :test do
   gem 'dotenv'
 end
-
-# gem 'sabel', path: '../sabel'

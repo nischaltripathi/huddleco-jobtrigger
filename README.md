@@ -50,7 +50,7 @@ Run these commands to deploy the app
 
 ```bash
 
-$ rsync -azlP --delete --include Dockerfile --include .env.production.local --include docker-compose* --exclude-from=.dockerignore  . deploy@laura-malta.bnr.la:~/migr8now && \
+$ rsync -azlP --delete --include Dockerfile --include .env.production.local --include tmp/sabel --include docker-compose* --exclude-from=.dockerignore  . deploy@laura-malta.bnr.la:~/migr8now && \
   ssh deploy@laura-malta.bnr.la -t "\
     (cd ~/migr8now && \
     docker build . -t migr8now-webapp:latest && \

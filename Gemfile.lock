@@ -1,3 +1,19 @@
+PATH
+  remote: tmp/sabel
+  specs:
+    sabel (0.1.0)
+      activemodel (~> 8.0)
+      activesupport (~> 8.0)
+      base64 (~> 0.2.0)
+      csv (~> 3.3)
+      dotenv (~> 3.1)
+      intercom (~> 4.2)
+      mimemagic (~> 0.4.3)
+      nokogiri (~> 1.16)
+      parallel (~> 1.24)
+      redcarpet (~> 3.6)
+      zendesk_api (~> 3.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -97,6 +113,7 @@ GEM
     concurrent-ruby (1.3.4)
     connection_pool (2.4.1)
     crass (1.0.6)
+    csv (3.3.0)
     date (3.4.0)
     debug (1.9.2)
       irb (~> 1.10)
@@ -110,8 +127,17 @@ GEM
     dotenv (3.1.4)
     drb (2.2.1)
     erubi (1.13.0)
+    faraday (2.12.1)
+      faraday-net_http (>= 2.0, < 3.5)
+      json
+      logger
+    faraday-multipart (1.0.4)
+      multipart-post (~> 2)
+    faraday-net_http (3.4.0)
+      net-http (>= 0.5.0)
     globalid (1.2.1)
       activesupport (>= 6.1)
+    hashie (5.0.0)
     htmlbeautifier (1.4.3)
     i18n (1.14.6)
       concurrent-ruby (~> 1.0)
@@ -119,6 +145,8 @@ GEM
       actionpack (>= 6.0.0)
       activesupport (>= 6.0.0)
       railties (>= 6.0.0)
+    inflection (1.0.0)
+    intercom (4.2.1)
     io-console (0.7.2)
     irb (1.14.1)
       rdoc (>= 4.0.0)
@@ -150,9 +178,15 @@ GEM
       net-smtp
     marcel (1.0.4)
     matrix (0.4.2)
+    mimemagic (0.4.3)
+      nokogiri (~> 1)
+      rake
     mini_mime (1.1.5)
     minitest (5.25.1)
     msgpack (1.7.5)
+    multipart-post (2.4.1)
+    net-http (0.5.0)
+      uri
     net-imap (0.5.1)
       date
       net-protocol
@@ -225,6 +259,7 @@ GEM
       debug (>= 1.2.2)
     rdoc (6.7.0)
       psych (>= 4.0.0)
+    redcarpet (3.6.0)
     redis-client (0.22.2)
       connection_pool
     regexp_parser (2.9.2)
@@ -302,6 +337,13 @@ GEM
     xpath (3.2.0)
       nokogiri (~> 1.8)
     zeitwerk (2.7.1)
+    zendesk_api (3.1.1)
+      faraday (> 2.0.0)
+      faraday-multipart
+      hashie (>= 3.5.2, < 6.0.0)
+      inflection
+      mini_mime
+      multipart-post (~> 2.0)
 
 PLATFORMS
   x64-mingw-ucrt
@@ -324,6 +366,7 @@ DEPENDENCIES
   rdbg
   rubocop
   ruby-lsp
+  sabel!
   selenium-webdriver
   sidekiq
   sprockets-rails
