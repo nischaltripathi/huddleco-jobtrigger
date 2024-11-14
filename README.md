@@ -19,9 +19,14 @@ Things you may want to cover:
 
 * Services (job queues, cache servers, search engines, etc.)
 
-* http://127.0.0.1:3000/letter_opener <- to check emails
+* <http://127.0.0.1:3000/letter_opener> <- to check emails
 
 * ...
+# Development
+
+## Environemnt Variables
+
+Enironment variables can be found in `.env` . It is recommended to copy the file to `.env.local.development` and add the required values.
 
 ## Credentials
 
@@ -75,7 +80,7 @@ Welcome to Ubuntu 22.04.4 LTS (GNU/Linux 5.15.0-113-generic x86_64)
 Run the `bin/docker-entrypoint bin/rails c` command via `docker exec` to access the production rails console.
 
 ```bash
-$ docker exec -it <CONTAINER_NAME> bin/docker-entrypoint bin/rails c
+docker exec -it <CONTAINER_NAME> bin/docker-entrypoint bin/rails c
 ```
 
 Where `<CONTAINER_NAME>` is the container instance name that starts with `migr8now_webapp_app` .

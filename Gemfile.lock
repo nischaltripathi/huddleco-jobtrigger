@@ -107,6 +107,7 @@ GEM
       railties (>= 4.1.0)
       responders
       warden (~> 1.2.3)
+    dotenv (3.1.4)
     drb (2.2.1)
     erubi (1.13.0)
     globalid (1.2.1)
@@ -256,7 +257,11 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
-    sorbet-runtime (0.5.11528)
+    sidekiq (7.3.5)
+      connection_pool (>= 2.3.0)
+      logger
+      rack (>= 2.2.4)
+      redis-client (>= 0.22.2)
     sprockets (4.2.1)
       concurrent-ruby (~> 1.0)
       rack (>= 2.2.4, < 4)
@@ -308,6 +313,7 @@ DEPENDENCIES
   capybara
   debug
   devise
+  dotenv
   htmlbeautifier
   importmap-rails
   jbuilder
@@ -318,6 +324,7 @@ DEPENDENCIES
   rubocop
   ruby-lsp
   selenium-webdriver
+  sidekiq
   sprockets-rails
   sqlite3 (~> 2.0)
   stimulus-rails

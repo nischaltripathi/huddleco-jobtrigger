@@ -68,10 +68,15 @@ end
 
 gem 'devise'
 gem 'local_time'
+gem 'sidekiq'
 
 group :development do
   gem 'htmlbeautifier'
   gem 'letter_opener_web', '~> 3.0'
   gem 'rubocop'
   gem 'ruby-lsp'
+end
+
+group :development, :test do
+  gem 'dotenv'
 end

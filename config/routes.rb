@@ -1,11 +1,16 @@
+require 'sidekiq/web'
+
 Rails.application.routes.draw do
   devise_for :users
-  resources :jobs
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   # root 'jobs#index'
 
   authenticated :user do
     root to: 'jobs#index', as: :authenticated_root
+  end
+
+  authenticate :user, ->(user) { user } do
+    mount Sidekiq::Web => '/sidekiq'
   end
 
   devise_scope :user do
