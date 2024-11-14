@@ -8,8 +8,8 @@ gem 'rails', '~> 8.0'
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem 'sprockets-rails'
 
-# Use sqlite3 as the database for Active Record
-gem 'sqlite3', '~> 2.0'
+# Use postgres as the database for Active Record
+gem 'pg'
 
 # Use the Puma web server [https://github.com/puma/puma]
 gem 'puma', '>= 6.0'
@@ -72,7 +72,8 @@ gem 'sidekiq'
 
 group :development do
   gem 'htmlbeautifier'
-  gem 'letter_opener_web', '~> 3.0'
+  gem 'letter_opener_web'
+  gem 'rdbg'
   gem 'rubocop'
   gem 'ruby-lsp'
 end
