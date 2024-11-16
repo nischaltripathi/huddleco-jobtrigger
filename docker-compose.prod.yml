@@ -1,0 +1,64 @@
+services:
+  app:
+    image: migr8now-webapp:latest
+    env_file: .env.production.local
+    networks:
+      - proxy
+      - main
+    depends_on:
+      - postgresdb
+      - redis
+    volumes:
+      - app-storage:/rails/storage
+    deploy:
+      replicas: 1
+      rollback_config:
+        parallelism: 0
+      update_config:
+        parallelism: 1
+        delay: 10s
+        order: start-first
+
+  sidekiq:
+    image: migr8now-webapp:latest
+    env_file: .env.production.local
+    networks:
+      - main
+    depends_on:
+      - postgresdb
+      - redis
+    volumes:
+      - app-storage:/rails/storage
+    deploy:
+      replicas: 1
+    command: bin/sidekiq
+
+  redis:
+    image: redis:alpine
+    networks:
+      - main
+    volumes:
+      - redis-data:/data
+    command: redis-server --requirepass redis --save 60 1 --loglevel warning
+
+  postgresdb:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: production
+    networks:
+      - main
+    volumes:
+      - db-data:/var/lib/postgresql/data
+
+volumes:
+  db-data:
+  app-storage:
+  redis-data:
+
+networks:
+  main:
+  proxy:
+    external: true
+    name: NPM_default
