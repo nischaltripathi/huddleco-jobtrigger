@@ -1,7 +1,7 @@
-<%= form_with(model: job) do |form| %>
+<%= form_with(model: job, local: true) do |form| %>
   <% if job.errors.any? %>
-    <div  id="error_explanation" class="alert alert-danger alert-dismissible fade show" role="alert" >
-      <h2><%= pluralize(job.errors.count, "error") %> prohibited this job from being saved:</h2>
+    <div id="error_explanation" class="alert alert-danger alert-dismissible fade show" role="alert">
+      <h4><%= pluralize(job.errors.count, "error") %> prohibited this job from being saved:</h4>
       <ul>
         <% job.errors.each do |error| %>
           <li><%= error.full_message %></li>
@@ -9,31 +9,174 @@
       </ul>
     </div>
   <% end %>
-  <div class="card">
+  <div class="card shadow-sm mb-4">
+    <div class="card-header bg-primary text-white">
+      <h3 class="card-title mb-0">New Client</h3>
+    </div>
     <div class="card-body">
-      <form>
-        <div class="field form-group">
-          <%= form.label :company_name, style: "display: block" %>
-          <%= form.text_field :company_name,  class: "form-control" %>
+      <!-- Step 1 -->
+      <div class="form-step" id="step-1">
+        <h4 class="mb-4">Step 1: Basic Information</h4>
+        <!-- Company Name -->
+        <div class="mb-4">
+          <%= form.label :company_name, "Company Name", class: "form-label fw-bold" %>
+          <%= form.text_field :company_name, class: "form-control form-control-lg" %>
         </div>
-        <div class="field form-group">
-          <%= form.label :zendesk_subdomain, style: "display: block", class: "form-label" %>
-          <%= form.text_field :zendesk_subdomain,  class: "form-control" %>
+        <!-- Zendesk Section -->
+        <div class="row">
+          <div class="col-md-6">
+            <div class="card shadow-sm mb-4">
+              <div class="card-header bg-secondary text-white">
+                <h5 class="card-title mb-0">Zendesk</h5>
+              </div>
+              <div class="card-body">
+                <div class="mb-3">
+                  <%= form.label :zendesk_subdomain, "Subdomain", class: "form-label" %>
+                  <%= form.text_field :zendesk_subdomain, class: "form-control" %>
+                </div>
+                <div class="mb-3">
+                  <%= form.label :zendesk_username, "Username", class: "form-label" %>
+                  <%= form.text_field :zendesk_username, class: "form-control" %>
+                </div>
+                <div class="mb-3">
+                  <%= form.label :zendesk_api_key, "API Key", class: "form-label" %>
+                  <%= form.text_field :zendesk_api_key, class: "form-control" %>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Intercom Section -->
+          <div class="col-md-6">
+            <div class="card shadow-sm mb-4">
+              <div class="card-header bg-secondary text-white">
+                <h5 class="card-title mb-0">Intercom</h5>
+              </div>
+              <div class="card-body">
+                <div class="mb-3">
+                  <%= form.label :intercom_api_key, "API Key", class: "form-label" %>
+                  <%= form.text_field :intercom_api_key, class: "form-control" %>
+                </div>
+                <div class="mb-3">
+                  <%= form.label :intercom_inbox, "Inbox", class: "form-label" %>
+                  <%= form.text_field :intercom_inbox, class: "form-control" %>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="field form-group">
-          <%= form.label :zendesk_username, style: "display: block", class: "form-label" %>
-          <%= form.text_field :zendesk_username,  class: "form-control" %>
+        <!-- Test Connection Section -->
+        <div class="d-flex align-items-center mb-4">
+          <%= button_tag "Test", type: :button, class: "btn btn-outline-primary me-3" %>
+          <div>
+            <p class="mb-1 text-success">Testing connection was successful</p>
+            <p class="mb-0 text-muted">Intercom is connected to ABC [Test] workspace</p>
+          </div>
         </div>
-        <div class="field form-group">
-          <%= form.label :zendesk_api_key, style: "display: block", class: "form-label" %>
-          <%= form.text_field :zendesk_api_key,  class: "form-control" %>
+      </div>
+      <!-- Step 2 -->
+      <div class="form-step d-none" id="step-2">
+        <h4 class="mb-4">Step 2: Ticket Mapping</h4>
+        <!-- Ticket Mapping Fields in Card Layout -->
+        <div class="card shadow-sm mb-4">
+          <div class="card-body">
+            <h5 class="card-title mb-3">Status Mapping</h5>
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <%= form.label :default_values, "Use for default or empty values", class: "form-label fw-bold" %>
+                <%= form.select :default_values, options_for_select(['Submitted', 'Open', 'Closed', 'Create status in Intercom']), class: "form-control" %>
+              </div>
+              <div class="col-md-6">
+                <%= form.label :open_values, "Open", class: "form-label fw-bold" %>
+                <%= form.select :open_values, options_for_select(['Submitted', 'Open', 'Closed', 'Create status in Intercom']), class: "form-control" %>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <%= form.label :pending_values, "Pending", class: "form-label fw-bold" %>
+                <%= form.select :pending_values, options_for_select(['Submitted', 'Open', 'Closed', 'Create status in Intercom']), class: "form-control" %>
+              </div>
+              <div class="col-md-6">
+                <%= form.label :solved_values, "Solved", class: "form-label fw-bold" %>
+                <%= form.select :solved_values, options_for_select(['Submitted', 'Open', 'Closed', 'Create status in Intercom']), class: "form-control" %>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <%= form.label :closed_values, "Closed", class: "form-label fw-bold" %>
+                <%= form.select :closed_values, options_for_select(['Submitted', 'Open', 'Closed', 'Create status in Intercom']), class: "form-control" %>
+              </div>
+              <div class="col-md-6">
+                <%= form.label :new_values, "New", class: "form-label fw-bold" %>
+                <%= form.select :new_values, options_for_select(['Submitted', 'Open', 'Closed', 'Create status in Intercom']), class: "form-control" %>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="field form-group">
-          <%= form.label :intercom_api_key, style: "display: block", class: "form-label" %>
-          <%= form.text_field :intercom_api_key,  class: "form-control" %>
+        <!-- Customer Tickets Section -->
+        <div class="card border-primary mb-4">
+          <div class="card-body">
+            <h5 class="text-primary">Customer Tickets</h5>
+            <p class="text-muted mb-3">
+              Tickets your customers have participated in will be imported as Customer tickets.
+              If you don't have any to import, skip to the next ticket type.
+            </p>
+            <div class="form-check mb-2">
+              <%= form.check_box :import_as, class: "form-check-input" %>
+              <%= form.label :import_as, "Import as", class: "form-check-label" %>
+              <%= form.select :support_requests, options_for_select(['Support requests', 'Customer Ticket', 'Back office ticket']), class: "form-control ms-2" %>
+            </div>
+            <p class="text-muted mt-2">
+              You can create more ticket types <a href="#">here</a> (save and refresh to see here).
+            </p>
+          </div>
         </div>
-        <%= form.submit class: "btn btn-primary"%>
-      </form>
+      </div>
+      <!-- Navigation Buttons -->
+      <div class="d-flex justify-content-between mt-4">
+        <div>
+          <button type="button" id="backButton" class="btn btn-outline-secondary d-none" onclick="prevStep()">Back</button>
+        </div>
+        <div>
+          <button type="button" id="continueButton" class="btn btn-primary" onclick="nextStep()">Continue</button>
+          <%= form.submit "Submit", class: "btn btn-primary d-none", id: "submitButton" %>
+        </div>
+      </div>
     </div>
   </div>
 <% end %>
+<script>
+  let currentStep = 1;
+  const totalSteps = 2;
+
+  function showStep(step) {
+    // Hide all steps
+    document.querySelectorAll('.form-step').forEach(stepDiv => stepDiv.classList.add('d-none'));
+
+    // Show the current step
+    document.getElementById(`step-${step}`).classList.remove('d-none');
+
+    // Show/hide navigation buttons
+    document.getElementById('backButton').classList.toggle('d-none', step === 1);
+    document.getElementById('continueButton').classList.toggle('d-none', step === totalSteps);
+    document.getElementById('submitButton').classList.toggle('d-none', step !== totalSteps);
+  }
+
+  function nextStep() {
+    if (currentStep < totalSteps) {
+      currentStep++;
+      showStep(currentStep);
+    }
+  }
+
+  function prevStep() {
+    if (currentStep > 1) {
+      currentStep--;
+      showStep(currentStep);
+    }
+  }
+
+  // Initial step display
+  document.addEventListener("DOMContentLoaded", () => {
+    showStep(currentStep);
+  });
+</script>

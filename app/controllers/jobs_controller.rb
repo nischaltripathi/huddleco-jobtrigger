@@ -98,6 +98,6 @@ class JobsController < ApplicationController
   # Only allow a list of trusted parameters through.
   def job_params
     params.require(:job).permit(:company_name, :zendesk_subdomain, :zendesk_username,
-                                :zendesk_api_key, :intercom_api_key)
+                                :zendesk_api_key, :intercom_api_key, :intercom_inbox)
   end
 end
