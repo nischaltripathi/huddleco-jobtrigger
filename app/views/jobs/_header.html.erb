@@ -8,8 +8,8 @@
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
         <% if user_signed_in? %>
           <div class="btn-group">
-            <button style="width: 50px; height: 50px; border-radius: 50%; position: relative; padding: 0;" type="button" class="btn btn-success dropdown-toggle d-flex align-items-center justify-content-center" data-bs-toggle="dropdown" aria-expanded="false">
-              <%= current_user.email[0].upcase %>
+            <button style="width: 50px; height: 50px; border-radius: 50%; position: relative; padding: 0; text-transform: uppercase;" type="button" class="btn btn-success dropdown-toggle d-flex align-items-center justify-content-center" data-bs-toggle="dropdown" aria-expanded="false">
+              <%= current_user.initials %>
             </button>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
               <%= link_to "Edit Profile", edit_user_registration_path, class: "dropdown-item", data: { turbo: false }%>
