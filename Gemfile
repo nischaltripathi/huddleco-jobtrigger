@@ -68,7 +68,7 @@ end
 
 gem 'devise'
 gem 'local_time'
-gem 'sabel', path: 'tmp/sabel'
+gem 'sabel', path: 'sabel'
 gem 'sidekiq'
 
 group :development do

@@ -1,5 +1,5 @@
 PATH
-  remote: tmp/sabel
+  remote: sabel
   specs:
     sabel (0.1.0)
       activemodel (~> 8.0)

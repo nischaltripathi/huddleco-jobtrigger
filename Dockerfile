@@ -22,10 +22,13 @@ RUN apt-get update -qq && \
   apt-get install --no-install-recommends -y build-essential git libpq-dev libvips pkg-config
 
 # Install application gems
+COPY ./sabel ./sabel
 COPY Gemfile Gemfile.lock ./
 RUN bundle install && \
   rm -rf ~/.bundle/ "${BUNDLE_PATH}"/ruby/*/cache "${BUNDLE_PATH}"/ruby/*/bundler/gems/*/.git && \
   bundle exec bootsnap precompile --gemfile
+
+RUN git config --global --add safe.directory ./sabel
 
 # Copy application code
 COPY . .
@@ -47,17 +50,20 @@ FROM base
 
 # Install packages needed for deployment
 RUN apt-get update -qq && \
-  apt-get install --no-install-recommends -y curl libpq-dev libvips && \
+  apt-get install --no-install-recommends -y curl libpq-dev libvips git && \
   rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
 # Copy built artifacts: gems, application
 COPY --from=build /usr/local/bundle /usr/local/bundle
 COPY --from=build /rails /rails
 
+
 # Run and own only the runtime files as a non-root user for security
 RUN useradd rails --create-home --shell /bin/bash && \
   chown -R rails:rails db log storage tmp
 USER rails:rails
+
+RUN git config --global --add safe.directory /rails/sabel
 
 # Entrypoint prepares the database.
 ENTRYPOINT ["/rails/bin/docker-entrypoint"]
