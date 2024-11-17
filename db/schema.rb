@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_11_13_124045) do
+ActiveRecord::Schema[8.0].define(version: 2024_11_17_121804) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -26,6 +26,23 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_13_124045) do
     t.boolean "in_progress"
     t.bigint "user_id"
     t.string "intercom_inbox"
+    t.string "empty_or_default_values"
+    t.string "open_values"
+    t.string "pending_values"
+    t.string "solved_values"
+    t.string "closed_values"
+    t.string "new_values"
+    t.boolean "import_as_support_requests"
+    t.string "support_request_type"
+    t.boolean "migrate_newest_records", default: false
+    t.boolean "migrate_side_conversations", default: false
+    t.boolean "demo_customer_data", default: false
+    t.boolean "skip_attachments", default: false
+    t.boolean "add_new_tag_to_tickets", default: false
+    t.string "tag_name"
+    t.string "intercom_admin"
+    t.integer "default_teammate"
+    t.json "agent_mappings", default: {}, null: false
     t.index ["user_id"], name: "index_jobs_on_user_id"
   end
 

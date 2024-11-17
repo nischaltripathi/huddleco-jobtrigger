@@ -1,4 +1,4 @@
-<%= form_with(model: job, local: true) do |form| %>
+<%= form_with(model: job, local: true, id: "jobForm") do |form| %>
   <% if job.errors.any? %>
     <div id="error_explanation" class="alert alert-danger alert-dismissible fade show" role="alert">
       <h4><%= pluralize(job.errors.count, "error") %> prohibited this job from being saved:</h4>
@@ -64,70 +64,142 @@
             </div>
           </div>
         </div>
-        <!-- Test Connection Section -->
-        <div class="d-flex align-items-center mb-4">
-          <%= button_tag "Test", type: :button, class: "btn btn-outline-primary me-3" %>
-          <div>
-            <p class="mb-1 text-success">Testing connection was successful</p>
-            <p class="mb-0 text-muted">Intercom is connected to ABC [Test] workspace</p>
-          </div>
-        </div>
       </div>
       <!-- Step 2 -->
       <div class="form-step d-none" id="step-2">
         <h4 class="mb-4">Step 2: Ticket Mapping</h4>
-        <!-- Ticket Mapping Fields in Card Layout -->
+        <!-- Ticket Mapping Fields -->
         <div class="card shadow-sm mb-4">
           <div class="card-body">
             <h5 class="card-title mb-3">Status Mapping</h5>
             <div class="row mb-3">
               <div class="col-md-6">
-                <%= form.label :default_values, "Use for default or empty values", class: "form-label fw-bold" %>
-                <%= form.select :default_values, options_for_select(['Submitted', 'Open', 'Closed', 'Create status in Intercom']), class: "form-control" %>
+                <%= form.label :empty_or_default_values, "Use for default or empty values", class: "form-label fw-bold" %>
+                <%= form.select :empty_or_default_values, options_for_select(['Submitted', 'Open', 'Closed', 'Create status in Intercom'], job.empty_or_default_values), class: "form-control" %>
               </div>
               <div class="col-md-6">
                 <%= form.label :open_values, "Open", class: "form-label fw-bold" %>
-                <%= form.select :open_values, options_for_select(['Submitted', 'Open', 'Closed', 'Create status in Intercom']), class: "form-control" %>
+                <%= form.select :open_values, options_for_select(['Submitted', 'Open', 'Closed', 'Create status in Intercom'], job.open_values), class: "form-control" %>
               </div>
             </div>
             <div class="row mb-3">
               <div class="col-md-6">
                 <%= form.label :pending_values, "Pending", class: "form-label fw-bold" %>
-                <%= form.select :pending_values, options_for_select(['Submitted', 'Open', 'Closed', 'Create status in Intercom']), class: "form-control" %>
+                <%= form.select :pending_values, options_for_select(['Submitted', 'Open', 'Closed', 'Create status in Intercom'], job.pending_values), class: "form-control" %>
               </div>
               <div class="col-md-6">
                 <%= form.label :solved_values, "Solved", class: "form-label fw-bold" %>
-                <%= form.select :solved_values, options_for_select(['Submitted', 'Open', 'Closed', 'Create status in Intercom']), class: "form-control" %>
+                <%= form.select :solved_values, options_for_select(['Submitted', 'Open', 'Closed', 'Create status in Intercom'], job.solved_values), class: "form-control" %>
               </div>
             </div>
             <div class="row mb-3">
               <div class="col-md-6">
                 <%= form.label :closed_values, "Closed", class: "form-label fw-bold" %>
-                <%= form.select :closed_values, options_for_select(['Submitted', 'Open', 'Closed', 'Create status in Intercom']), class: "form-control" %>
+                <%= form.select :closed_values, options_for_select(['Submitted', 'Open', 'Closed', 'Create status in Intercom'], job.closed_values), class: "form-control" %>
               </div>
               <div class="col-md-6">
                 <%= form.label :new_values, "New", class: "form-label fw-bold" %>
-                <%= form.select :new_values, options_for_select(['Submitted', 'Open', 'Closed', 'Create status in Intercom']), class: "form-control" %>
+                <%= form.select :new_values, options_for_select(['Submitted', 'Open', 'Closed', 'Create status in Intercom'], job.new_values), class: "form-control" %>
               </div>
             </div>
           </div>
         </div>
-        <!-- Customer Tickets Section -->
-        <div class="card border-primary mb-4">
+      </div>
+      <!-- Step 3 -->
+      <div class="form-step d-none" id="step-3">
+        <h4 class="mb-4">Step 3: Ticket Settings</h4>
+        <div class="card shadow-sm mb-4">
           <div class="card-body">
-            <h5 class="text-primary">Customer Tickets</h5>
-            <p class="text-muted mb-3">
-              Tickets your customers have participated in will be imported as Customer tickets.
-              If you don't have any to import, skip to the next ticket type.
-            </p>
-            <div class="form-check mb-2">
-              <%= form.check_box :import_as, class: "form-check-input" %>
-              <%= form.label :import_as, "Import as", class: "form-check-label" %>
-              <%= form.select :support_requests, options_for_select(['Support requests', 'Customer Ticket', 'Back office ticket']), class: "form-control ms-2" %>
+            <h5 class="card-title mb-3">Ticket Settings</h5>
+            <div class="form-check mb-3">
+              <%= form.check_box :migrate_newest_records, class: "form-check-input" %>
+              <%= form.label :migrate_newest_records, "Migrate newest records first", class: "form-check-label" %>
             </div>
-            <p class="text-muted mt-2">
-              You can create more ticket types <a href="#">here</a> (save and refresh to see here).
-            </p>
+            <div class="form-check mb-3">
+              <%= form.check_box :migrate_side_conversations, class: "form-check-input" %>
+              <%= form.label :migrate_side_conversations, "Migrate side conversations", class: "form-check-label" %>
+            </div>
+            <div class="form-check mb-3">
+              <%= form.check_box :demo_customer_data, class: "form-check-input" %>
+              <%= form.label :demo_customer_data, "Demo with custom data", class: "form-check-label" %>
+            </div>
+            <div class="form-check mb-3">
+              <%= form.check_box :skip_attachments, class: "form-check-input" %>
+              <%= form.label :skip_attachments, "Skip attachments", class: "form-check-label" %>
+            </div>
+            <div class="form-check mb-3">
+              <%= form.check_box :add_new_tag_to_tickets, class: "form-check-input", id: "add_new_tag_to_tickets" %>
+              <%= form.label :add_new_tag_to_tickets, "Add a new tag to tickets", class: "form-check-label" %>
+              <%= form.text_field :tag_name, id: "tag-input", class: "form-control", placeholder: "Add tags (comma-separated)" %>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Step 4 -->
+      <div class="form-step d-none" id="step-4">
+        <h4 class="mb-4">Step 4: Agent Settings</h4>
+        <!-- Refresh Button -->
+        <div class="d-flex justify-content-end mb-3">
+          <button type="button" class="btn btn-outline-primary" id="refreshButton">Refresh</button>
+        </div>
+        <!-- Zendesk Agents ↔ Intercom Admins -->
+        <div class="card shadow-sm mb-4">
+          <div class="card-body d-flex justify-content-between align-items-center">
+            <div>
+              <h5 class="card-title mb-3">Zendesk Agents ↔ Intercom Admins</h5>
+              <p>Choose default admin on the target platform for unassigned, deleted, or inactive agents:</p>
+            </div>
+            <div class="w-50">
+              <%= form.select :intercom_admin, 
+                    options_for_select(@intercom_admins.map { |admin| [admin.name, admin.id] }, job.intercom_admin), 
+                    prompt: "Select teammate", 
+                    class: "form-control" %>
+            </div>
+          </div>
+        </div>
+        <!-- Default Teammate -->
+        <div class="card-body d-flex justify-content-between align-items-center">
+          <div>
+            <h5 class="card-title mb-3">Default Teammate</h5>
+            <p>Select someone to handle unassigned tickets and replace skipped teammates. You can <a href="#">invite teammates</a> to join your workspace if needed.</p>
+          </div>
+          <div class="w-50">
+            <%= form.select :default_teammate, 
+                    options_for_select(@default_teammates.map { |teammate| [teammate.name, teammate.id] }, job.default_teammate), 
+                    prompt: "Select teammate", 
+                    class: "form-control" %>
+          </div>
+        </div>
+        <!-- All Teammates -->
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title mb-3">All Teammates</h5>
+            <p>Map teammates. Skipped teammates' comments will be imported as if written by your default teammate. You can <a href="#">invite teammates</a> to join your workspace.</p>
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th>Zendesk</th>
+                  <th></th>
+                  <th>Intercom</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @zendesk_agents.each do |agent| %>
+                  <tr>
+                    <td>
+                      <%= agent.name %>
+                    </td>
+                    <td class="text-center">→</td>
+                    <td>
+                      <%= form.select "agent_mappings[#{agent.id}]", 
+                      options_for_select(@intercom_teammates.map { |admin| [admin.name, admin.id] }.prepend(['Skip', 'skip']), 
+                                         job.agent_mappings&.dig(agent.id.to_s) || 'skip'), 
+                      class: "form-control" %>
+                    </td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
@@ -137,7 +209,7 @@
           <button type="button" id="backButton" class="btn btn-outline-secondary d-none" onclick="prevStep()">Back</button>
         </div>
         <div>
-          <button type="button" id="continueButton" class="btn btn-primary" onclick="nextStep()">Continue</button>
+          <button type="button" id="continueButton" class="btn btn-primary" onclick="validateAndNext()">Continue</button>
           <%= form.submit "Submit", class: "btn btn-primary d-none", id: "submitButton" %>
         </div>
       </div>
@@ -146,37 +218,41 @@
 <% end %>
 <script>
   let currentStep = 1;
-  const totalSteps = 2;
+  const totalSteps = 4;
 
   function showStep(step) {
-    // Hide all steps
-    document.querySelectorAll('.form-step').forEach(stepDiv => stepDiv.classList.add('d-none'));
+  document.querySelectorAll('.form-step').forEach((stepDiv) => {
+    stepDiv.classList.add('d-none');
+  });
 
-    // Show the current step
-    document.getElementById(`step-${step}`).classList.remove('d-none');
-
-    // Show/hide navigation buttons
-    document.getElementById('backButton').classList.toggle('d-none', step === 1);
-    document.getElementById('continueButton').classList.toggle('d-none', step === totalSteps);
-    document.getElementById('submitButton').classList.toggle('d-none', step !== totalSteps);
+  document.getElementById(`step-${step}`).classList.remove('d-none');
+  document.getElementById('backButton').classList.toggle('d-none', step === 1);
+  document.getElementById('continueButton').classList.toggle('d-none', step === totalSteps);
+  document.getElementById('submitButton').classList.toggle('d-none', step !== totalSteps);
   }
 
-  function nextStep() {
+  function validateAndNext() {
+  const currentForm = document.querySelector(`#step-${currentStep}`);
+  const invalidFields = currentForm.querySelectorAll('.is-invalid');
+
+  if (invalidFields.length === 0) {
     if (currentStep < totalSteps) {
       currentStep++;
       showStep(currentStep);
     }
+  } else {
+    invalidFields[0].focus();
+  }
   }
 
   function prevStep() {
-    if (currentStep > 1) {
-      currentStep--;
-      showStep(currentStep);
-    }
+  if (currentStep > 1) {
+    currentStep--;
+    showStep(currentStep);
+  }
   }
 
-  // Initial step display
-  document.addEventListener("DOMContentLoaded", () => {
-    showStep(currentStep);
+  document.addEventListener('DOMContentLoaded', () => {
+  showStep(currentStep);
   });
 </script>

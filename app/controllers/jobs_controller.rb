@@ -1,8 +1,10 @@
+require 'ostruct'
+
 class JobsController < ApplicationController
   before_action :set_job, only: %i[show edit update destroy]
   before_action :authenticate_user!
   before_action :correct_user, only: %i[edit update destroy]
-  # GET /jobs or /jobs.json
+
   def index
     @jobs = Job.all
     @jobs.each do |job|
@@ -38,20 +40,56 @@ class JobsController < ApplicationController
     end
   end
 
-  # GET /jobs/1 or /jobs/1.json
-  def show
-  end
+  def show; end
 
-  # GET /jobs/new
   def new
     @job = current_user.jobs.build
+
+    # Example data for dropdowns
+    @intercom_admins = [
+      OpenStruct.new(id: 1, name: 'info@customersuccess.com'),
+      OpenStruct.new(id: 2, name: 'test@customersuccess.com')
+    ]
+    @default_teammates = [
+      OpenStruct.new(id: 1, name: 'Gustavo Vetrovs'),
+      OpenStruct.new(id: 2, name: 'Backup Teammate')
+    ]
+    @zendesk_agents = [
+      OpenStruct.new(id: 1, name: 'Gustavo Vetrovs'),
+      OpenStruct.new(id: 2, name: 'Cristofer Kenter'),
+      OpenStruct.new(id: 3, name: 'Kierra Workman'),
+      OpenStruct.new(id: 4, name: 'Ashlynn Gouse')
+    ]
+    @intercom_teammates = [
+      OpenStruct.new(id: 1, name: 'Gustavo Vetrovs'),
+      OpenStruct.new(id: 2, name: 'Admin 1'),
+      OpenStruct.new(id: 3, name: 'Admin 2')
+    ]
   end
 
-  # GET /jobs/1/edit
   def edit
+    # Example data for dropdowns
+    @intercom_admins = [
+      OpenStruct.new(id: 1, name: 'info@customersuccess.com'),
+      OpenStruct.new(id: 2, name: 'test@customersuccess.com')
+    ]
+    @default_teammates = [
+      OpenStruct.new(id: 1, name: 'Gustavo Vetrovs'),
+      OpenStruct.new(id: 2, name: 'Backup Teammate')
+    ]
+    @zendesk_agents = [
+      OpenStruct.new(id: 1, name: 'Gustavo Vetrovs'),
+      OpenStruct.new(id: 2, name: 'Cristofer Kenter'),
+      OpenStruct.new(id: 3, name: 'Kierra Workman'),
+      OpenStruct.new(id: 4, name: 'Ashlynn Gouse')
+    ]
+    @intercom_teammates = [
+      OpenStruct.new(id: 1, name: 'Gustavo Vetrovs'),
+      OpenStruct.new(id: 2, name: 'Admin 1'),
+      OpenStruct.new(id: 3, name: 'Admin 2')
+    ] 
   end
 
-  # POST /jobs or /jobs.json
   def create
     @job = current_user.jobs.build(job_params)
     respond_to do |format|
@@ -95,9 +133,15 @@ class JobsController < ApplicationController
     @job = Job.find(params[:id])
   end
 
-  # Only allow a list of trusted parameters through.
   def job_params
-    params.require(:job).permit(:company_name, :zendesk_subdomain, :zendesk_username,
-                                :zendesk_api_key, :intercom_api_key, :intercom_inbox)
+    params.require(:job).permit(
+      :company_name, :zendesk_subdomain, :zendesk_username, :zendesk_api_key,
+      :intercom_api_key, :intercom_inbox, :empty_or_default_values, :open_values,
+      :pending_values, :solved_values, :closed_values, :new_values,
+      :import_as_support_requests, :support_request_type, :migrate_newest_records,
+      :migrate_side_conversations, :demo_customer_data, :skip_attachments,
+      :add_new_tag_to_tickets, :tag_name, :intercom_admin, :default_teammate,
+      agent_mappings: {}
+    )
   end
 end
