@@ -6,34 +6,15 @@ class JobsController < ApplicationController
   DropdownItem = Struct.new(:id, :name)
 
   def index
-    if params[:search_by_job_id].present?
-      job = Job.find_by(id: params[:search_by_job_id])
-      if job
-        redirect_to job_path(job)
-      else
-        flash[:alert] = "Job with ID #{params[:search_by_job_id]} not found."
-        @jobs = Job.all
-      end
-    else
-      @jobs = Job.all
-    end
-    return unless @jobs.present?
+    @jobs = Job.all
 
-    @jobs.each do |job|
-      job.progress = if job.in_progress
-                       job.progress + 1
-                     else
-                       job.progress = job.progress
-                     end
-      job.save
-    end
-  end
+    return unless params[:search_term].present?
 
-  def search
-    return unless params[:search_by_job_id] && params[:search_by_job_id] != ''
+    jobs = Job.where('company_name ILIKE ?', "%#{params[:search_term]}%")
 
-    @jobs = @jobs.where('search_by_job_id like ?',
-                        '%# {params[:id]}%')
+    return unless jobs.empty?
+
+    flash[:notice] = "No jobs match \"#{params[:search_term]}\""
   end
 
   def start
