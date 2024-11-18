@@ -1,9 +1,9 @@
-require 'ostruct'
-
 class JobsController < ApplicationController
   before_action :set_job, only: %i[show edit update destroy]
   before_action :authenticate_user!
   before_action :correct_user, only: %i[edit update destroy]
+
+  DropdownItem = Struct.new(:id, :name)
 
   def index
     if params[:search_by_job_id].present?
@@ -66,47 +66,47 @@ class JobsController < ApplicationController
 
     # Example data for dropdowns
     @intercom_admins = [
-      OpenStruct.new(id: 1, name: 'info@customersuccess.com'),
-      OpenStruct.new(id: 2, name: 'test@customersuccess.com')
+      DropdownItem.new(id: 1, name: 'info@customersuccess.com'),
+      DropdownItem.new(id: 2, name: 'test@customersuccess.com')
     ]
     @default_teammates = [
-      OpenStruct.new(id: 1, name: 'Gustavo Vetrovs'),
-      OpenStruct.new(id: 2, name: 'Backup Teammate')
+      DropdownItem.new(id: 1, name: 'Gustavo Vetrovs'),
+      DropdownItem.new(id: 2, name: 'Backup Teammate')
     ]
     @zendesk_agents = [
-      OpenStruct.new(id: 1, name: 'Gustavo Vetrovs'),
-      OpenStruct.new(id: 2, name: 'Cristofer Kenter'),
-      OpenStruct.new(id: 3, name: 'Kierra Workman'),
-      OpenStruct.new(id: 4, name: 'Ashlynn Gouse')
+      DropdownItem.new(id: 1, name: 'Gustavo Vetrovs'),
+      DropdownItem.new(id: 2, name: 'Cristofer Kenter'),
+      DropdownItem.new(id: 3, name: 'Kierra Workman'),
+      DropdownItem.new(id: 4, name: 'Ashlynn Gouse')
     ]
     @intercom_teammates = [
-      OpenStruct.new(id: 1, name: 'Gustavo Vetrovs'),
-      OpenStruct.new(id: 2, name: 'Admin 1'),
-      OpenStruct.new(id: 3, name: 'Admin 2')
+      DropdownItem.new(id: 1, name: 'Gustavo Vetrovs'),
+      DropdownItem.new(id: 2, name: 'Admin 1'),
+      DropdownItem.new(id: 3, name: 'Admin 2')
     ]
   end
 
   def edit
     # Example data for dropdowns
     @intercom_admins = [
-      OpenStruct.new(id: 1, name: 'info@customersuccess.com'),
-      OpenStruct.new(id: 2, name: 'test@customersuccess.com')
+      DropdownItem.new(id: 1, name: 'info@customersuccess.com'),
+      DropdownItem.new(id: 2, name: 'test@customersuccess.com')
     ]
     @default_teammates = [
-      OpenStruct.new(id: 1, name: 'Gustavo Vetrovs'),
-      OpenStruct.new(id: 2, name: 'Backup Teammate')
+      DropdownItem.new(id: 1, name: 'Gustavo Vetrovs'),
+      DropdownItem.new(id: 2, name: 'Backup Teammate')
     ]
     @zendesk_agents = [
-      OpenStruct.new(id: 1, name: 'Gustavo Vetrovs'),
-      OpenStruct.new(id: 2, name: 'Cristofer Kenter'),
-      OpenStruct.new(id: 3, name: 'Kierra Workman'),
-      OpenStruct.new(id: 4, name: 'Ashlynn Gouse')
+      DropdownItem.new(id: 1, name: 'Gustavo Vetrovs'),
+      DropdownItem.new(id: 2, name: 'Cristofer Kenter'),
+      DropdownItem.new(id: 3, name: 'Kierra Workman'),
+      DropdownItem.new(id: 4, name: 'Ashlynn Gouse')
     ]
     @intercom_teammates = [
-      OpenStruct.new(id: 1, name: 'Gustavo Vetrovs'),
-      OpenStruct.new(id: 2, name: 'Admin 1'),
-      OpenStruct.new(id: 3, name: 'Admin 2')
-    ] 
+      DropdownItem.new(id: 1, name: 'Gustavo Vetrovs'),
+      DropdownItem.new(id: 2, name: 'Admin 1'),
+      DropdownItem.new(id: 3, name: 'Admin 2')
+    ]
   end
 
   def create
