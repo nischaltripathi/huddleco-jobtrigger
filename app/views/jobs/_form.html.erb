@@ -1,4 +1,4 @@
-<%= form_with(model: job, local: true, id: "jobForm") do |form| %>
+<%= form_with(model: job, local: true, id: "job-form") do |form| %>
   <% if job.errors.any? %>
     <div id="error_explanation" class="alert alert-danger alert-dismissible fade show" role="alert">
       <h4><%= pluralize(job.errors.count, "error") %> prohibited this job from being saved:</h4>
@@ -206,11 +206,11 @@
       <!-- Navigation Buttons -->
       <div class="d-flex justify-content-between mt-4">
         <div>
-          <button type="button" id="backButton" class="btn btn-outline-secondary d-none" onclick="prevStep()">Back</button>
+          <button type="button" id="back-button" class="btn btn-outline-secondary d-none" onclick="prevStep()">Back</button>
         </div>
         <div>
-          <button type="button" id="continueButton" class="btn btn-primary" onclick="validateAndNext()">Continue</button>
-          <%= form.submit "Submit", class: "btn btn-primary d-none", id: "submitButton" %>
+          <button type="button" id="continue-button" class="btn btn-primary" onclick="validateAndNext()">Continue</button>
+          <%= form.submit "Submit", class: "btn btn-primary d-none", id: "submit-button" %>
         </div>
       </div>
     </div>
@@ -221,38 +221,41 @@
   const totalSteps = 4;
 
   function showStep(step) {
-  document.querySelectorAll('.form-step').forEach((stepDiv) => {
-    stepDiv.classList.add('d-none');
-  });
+    document.querySelectorAll('.form-step').forEach((stepDiv) => {
+      stepDiv.classList.add('d-none');
+    });
 
-  document.getElementById(`step-${step}`).classList.remove('d-none');
-  document.getElementById('backButton').classList.toggle('d-none', step === 1);
-  document.getElementById('continueButton').classList.toggle('d-none', step === totalSteps);
-  document.getElementById('submitButton').classList.toggle('d-none', step !== totalSteps);
+    document.getElementById(`step-${step}`).classList.remove('d-none');
+    document.getElementById('back-button').classList.toggle('d-none', step === 1);
+    document.getElementById('continue-button').classList.toggle('d-none', step === totalSteps);
+    document.getElementById('submit-button').classList.toggle('d-none', step !== totalSteps);
   }
 
   function validateAndNext() {
-  const currentForm = document.querySelector(`#step-${currentStep}`);
-  const invalidFields = currentForm.querySelectorAll('.is-invalid');
+    const currentForm = document.querySelector(`#step-${currentStep}`);
+    const invalidFields = currentForm.querySelectorAll('.is-invalid');
 
-  if (invalidFields.length === 0) {
-    if (currentStep < totalSteps) {
-      currentStep++;
-      showStep(currentStep);
+    if (invalidFields.length === 0) {
+      if (currentStep < totalSteps) {
+        currentStep++;
+        showStep(currentStep);
+      }
+    } else {
+      invalidFields[0].focus();
     }
-  } else {
-    invalidFields[0].focus();
-  }
   }
 
   function prevStep() {
-  if (currentStep > 1) {
-    currentStep--;
-    showStep(currentStep);
-  }
+    if (currentStep > 1) {
+      currentStep--;
+      showStep(currentStep);
+    }
   }
 
-  document.addEventListener('DOMContentLoaded', () => {
-  showStep(currentStep);
-  });
+  function init() {
+    showStep(currentStep);
+  }
+
+  document.addEventListener('DOMContentLoaded', init);
+  document.addEventListener('turbo:load', init);
 </script>
