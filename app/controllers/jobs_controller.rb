@@ -6,7 +6,19 @@ class JobsController < ApplicationController
   before_action :correct_user, only: %i[edit update destroy]
 
   def index
-    @jobs = Job.all
+    if params[:search_by_job_id].present?
+      job = Job.find_by(id: params[:search_by_job_id])
+      if job
+        redirect_to job_path(job)
+      else
+        flash[:alert] = "Job with ID #{params[:search_by_job_id]} not found."
+        @jobs = Job.all
+      end
+    else
+      @jobs = Job.all
+    end
+    return unless @jobs.present?
+
     @jobs.each do |job|
       job.progress = if job.in_progress
                        job.progress + 1
@@ -15,6 +27,13 @@ class JobsController < ApplicationController
                      end
       job.save
     end
+  end
+
+  def search
+    return unless params[:search_by_job_id] && params[:search_by_job_id] != ''
+
+    @jobs = @jobs.where('search_by_job_id like ?',
+                        '%# {params[:id]}%')
   end
 
   def start

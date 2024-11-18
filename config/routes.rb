@@ -2,6 +2,7 @@ require 'sidekiq/web'
 
 Rails.application.routes.draw do
   devise_for :users
+
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   # root 'jobs#index'
 
@@ -29,4 +30,5 @@ Rails.application.routes.draw do
       patch :pause
     end
   end
+  get 'search', to: 'jobs#search'
 end
