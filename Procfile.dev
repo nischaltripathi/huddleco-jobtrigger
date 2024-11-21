@@ -1,0 +1,5 @@
+# Procfile for development using HMR
+# You can run these commands in separate shells
+web: bundle exec rdbg --open -n -c -- bin/rails s -p 3000
+db: docker compose up
+jobs: (sleep 3 && bin/sidekiq)

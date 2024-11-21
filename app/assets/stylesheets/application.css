@@ -13,3 +13,15 @@
  *= require_tree .
  *= require_self
  */
+
+:root {
+  --brand-color-darkest: #ddc700;
+  --brand-color-dark: #ffd747;
+  --brand-color-normal: #ffe485;
+  --brand-color-light: #ffedad;
+  --brand-color-lightest: #fff6d6;
+}
+
+body {
+  background-color: var(--brand-color-lightest);
+}
