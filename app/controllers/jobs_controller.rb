@@ -4,17 +4,11 @@ class JobsController < ApplicationController
   before_action :correct_user, only: %i[edit update destroy]
   # GET /jobs or /jobs.json
   def index
-    if params[:search_by_job_id].present?
-      job = Job.find_by(id: params[:search_by_job_id])
-      if job
-        redirect_to job_path(job)
-      else
-        flash[:alert] = "Job with ID #{params[:search_by_job_id]} not found."
-        @jobs = Job.all
-      end
-    else
-      @jobs = Job.all
-    end
+    @jobs = if params[:search_by_job_name].present?
+              Job.where('company_name like ?', "%#{params[:search_by_job_name]}%")
+            else
+              Job.all
+            end
     return unless @jobs.present?
 
     @jobs.each do |job|
