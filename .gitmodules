@@ -1,0 +1,3 @@
+[submodule "sabel"]
+	path = sabel
+	url = git@github.com:HuddleCo/sabel-zendesk-etl.git
