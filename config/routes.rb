@@ -13,6 +13,8 @@ Rails.application.routes.draw do
   authenticate :user, ->(user) { user } do
     mount Sidekiq::Web => '/sidekiq'
   end
+  
+  get 'errorcode', to: 'errorhandling#errorcode'
 
   devise_scope :user do
     root to: 'devise/sessions#new', as: :unauthenticated_root
