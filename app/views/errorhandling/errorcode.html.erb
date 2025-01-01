@@ -8,27 +8,33 @@
     <div class="ms-2 me-auto">
       <div class="fw-bold">
         <input type="checkbox" class="selectable-checkbox" id="subheading-checkbox" style="margin-right: 10px;">
-        Error 404
+        <%= link_to "Error 404", errortickets_path %>
       </div>
     </div>
     <span class="badge text-bg-primary rounded-pill">14</span>
   </li>
   <li class="list-group-item d-flex justify-content-between align-items-start">
     <div class="ms-2 me-auto">
-      <div class="fw-bold"><input type="checkbox" class="selectable-checkbox" id="subheading-checkbox" style="margin-right: 10px;"> Timeout</div>
+      <div class="fw-bold">
+        <input type="checkbox" class="selectable-checkbox" id="subheading-checkbox" style="margin-right: 10px;">
+        <%= link_to "Timeout", errortickets_path %>
+      </div>
     </div>
     <span class="badge text-bg-primary rounded-pill">14</span>
   </li>
   <li class="list-group-item d-flex justify-content-between align-items-start">
     <div class="ms-2 me-auto">
-      <div class="fw-bold"><input type="checkbox" class="selectable-checkbox" id="subheading-checkbox" style="margin-right: 10px;"> Rate Limited</div>
+      <div class="fw-bold">
+        <input type="checkbox" class="selectable-checkbox" id="subheading-checkbox" style="margin-right: 10px;">
+        <%= link_to "Rate Limited", errortickets_path %>
+      </div>
     </div>
     <span class="badge text-bg-primary rounded-pill">14</span>
   </li>
 </ol>
 <%# Javascript logic, can be moved to some other javascript file. %>
 <script>
-  document.addEventListener("DOMContentLoaded", () => {
+  document.addEventListener("turbo:load", () => {
     const selectAllButton = document.getElementById("select-all-btn");
     const checkboxes = document.querySelectorAll(".selectable-checkbox");
 

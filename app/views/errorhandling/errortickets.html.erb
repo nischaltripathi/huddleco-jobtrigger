@@ -1,0 +1,93 @@
+<div style="display: flex; gap: 10px;">
+  <%= button_tag "Select All", type: "button", id: "select-all-btn", class: "btn btn-outline-primary" %>
+  <%= button_to "Retry", "", method: :post, class: "btn btn-outline-primary" %>
+</div>
+<br/>
+<ul class="list-group">
+  <li class="list-group-item d-flex justify-content-between align-items-start">
+    <div>
+      <div style="display: flex; gap: 10px; align-items: center;">
+        <input class="form-check-input me-1" type="checkbox" value="" id="firstCheckbox">
+        <label class="form-check-label fw-bold" for="firstCheckbox">Ticket#123123</label>
+      </div>
+      <small>Retried on 2024/11/11</small>
+    </div>
+    <%= link_to "View", "#", class: "btn btn-outline-primary btn-sm", data: { bs_toggle: "modal", bs_target: "#exampleModal" } %>
+  </li>
+  <li class="list-group-item d-flex justify-content-between align-items-start">
+    <div>
+      <div style="display: flex; gap: 10px; align-items: center;">
+        <input class="form-check-input me-1" type="checkbox" value="" id="secondCheckbox">
+        <label class="form-check-label fw-bold" for="secondCheckbox">Ticket#123123</label>
+      </div>
+      <small>Retried on 2024/11/11</small>
+    </div>
+    <%= link_to "View", "#", class: "btn btn-outline-primary btn-sm", data: { bs_toggle: "modal", bs_target: "#exampleModal" } %>
+  </li>
+  <li class="list-group-item d-flex justify-content-between align-items-start">
+    <div>
+      <div style="display: flex; gap: 10px; align-items: center;">
+        <input class="form-check-input me-1" type="checkbox" value="" id="thirdCheckbox">
+        <label class="form-check-label fw-bold" for="thirdCheckbox">Ticket#123123</label>
+      </div>
+      <small>Retried on 2024/11/11</small>
+    </div>
+    <%= link_to "View", "#", class: "btn btn-outline-primary btn-sm", data: { bs_toggle: "modal", bs_target: "#exampleModal" } %>
+  </li>
+</ul>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Ticket#123123</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div class="row">
+            <!-- Standard Output Column -->
+            <div class="col-md-6 border-end">
+              <h5 class="text-center"><b>Standard Output</b></h5>
+              <hr />
+              <pre style="max-height: 400px; overflow-y: auto; background-color: #f8f9fa; padding: 10px; border-radius: 5px;">
+[2024-12-05T07:38:47.0214] INFO -- GET
+https://api.example.com/resource
+...
+</pre>
+            </div>
+            <!-- Standard Error Column -->
+            <div class="col-md-6">
+              <h5 class="text-center"><b>Standard Error</b></h5>
+              <hr />
+              <pre style="max-height: 400px; overflow-y: auto; background-color: #f8f9fa; padding: 10px; border-radius: 5px;">
+/home/user/.rvm/gems/ruby-3.3.6/gems/intercom-4.2.1/lib/intercom/request.rb:18
+raise_application_error_on_failure: A contact matching those details
+...
+</pre>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Retry</button>
+      </div>
+    </div>
+  </div>
+</div>
+<%# Javascript logic, can be moved to some other javascript file. %>
+<script>
+  document.addEventListener("turbo:load", () => {
+    const selectAllButton = document.getElementById("select-all-btn");
+    const checkboxes = document.querySelectorAll(".form-check-input");
+
+    selectAllButton.addEventListener("click", () => {
+      const allCheckBoxCheck = Array.from(checkboxes).every(checkbox => checkbox.checked);
+
+      checkboxes.forEach(checkbox => {
+      checkbox.checked = !allCheckBoxCheck;
+    });
+    });
+  });
+</script>
